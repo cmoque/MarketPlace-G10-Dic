@@ -5,22 +5,36 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import com.example.icfesg10.databinding.ActivityDashboardBinding
 import com.example.icfesg10.databinding.ActivityMainBinding
 import com.example.icfesg10.databinding.ActivityMainPreguntasBinding
 import com.example.icfesg10.model.Pregunta
-import com.google.firebase.FirebaseApp
-import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+import com.example.icfesg10.model.test
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 class MainDashboard : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityDashboardBinding
+
+    private lateinit var listaPreguntas: ArrayList<Pregunta>
+    private lateinit var PreguntasVisorAdapter: ArrayAdapter<Pregunta>
+
+    var database = Firebase.database
+    var dbReferenciaPreguntas = database.getReference("preguntas")
+    var dbReferenceTest = database.getReference("test")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +44,8 @@ class MainDashboard : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.dashboard_page_title)
 
         auth = Firebase.auth
+        val currentUser = auth.currentUser
+        listaPreguntas = ArrayList<Pregunta>()
 
         binding.btnMostrarCuestionarios.setOnClickListener {
             val intent = Intent(this, MainCuestionarios::class.java)
@@ -40,6 +56,77 @@ class MainDashboard : AppCompatActivity() {
             val intent = Intent(this, MainPreguntas::class.java)
             this.startActivity(intent)
         }
+
+        binding.btnCrearTest.setOnClickListener{
+            if (currentUser != null) {
+                Generartest(currentUser.email.toString())
+            }
+            else
+                Generartest("admin")
+        }
+
+        verListadoPreguntas()
+
+    }
+
+
+    private fun Generartest(user:String){
+        var testfinal: ArrayList<Pregunta> =ArrayList<Pregunta>()
+        var listaSelecciona: ArrayList<Int> = ArrayList()
+        var posicion: Int
+        var termino:Boolean =false
+        while (!termino){
+            posicion= Random.nextInt(listaPreguntas.indices)
+            if (!listaSelecciona.contains(posicion)) {
+                listaSelecciona.add(posicion)
+                testfinal.add(listaPreguntas[posicion])
+            }
+            if(listaSelecciona.size==5)
+                termino=true
+        }
+        for (item in testfinal){
+            var test = test(
+                UUID.randomUUID().toString(),
+                2,
+                item.id,
+                item.PreTexto,
+                "",
+                item.Respuesta,
+                user
+
+            )
+            println(item)
+            dbReferenceTest.child(test.id.toString()).setValue(test)
+        }
+
+        Toast.makeText(this, "Se creó el test Aleatoriamente", Toast.LENGTH_LONG).show()
+    }
+    private fun verListadoPreguntas() {
+        val preguntaItemListener = object : ValueEventListener {
+            override fun onDataChange(datasnapshot: DataSnapshot) {
+                for (pre in datasnapshot.children) {
+
+                    val mapPregunta: Map<String, Any> = pre.value as HashMap<String, Any>
+
+                    var pregunta: Pregunta = Pregunta(
+                        mapPregunta.get("id").toString(),
+                        mapPregunta.get("preTexto").toString(),
+                        mapPregunta.get("opcion1").toString(),
+                        mapPregunta.get("opcion2").toString(),
+                        mapPregunta.get("opcion3").toString(),
+                        mapPregunta.get("respuesta").toString(),
+                        mapPregunta.get("area").toString(),
+                        mapPregunta.get("descripcion").toString()
+                    )
+                    listaPreguntas.add(pregunta)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        dbReferenciaPreguntas.addValueEventListener(preguntaItemListener)
     }
 
     private fun cerrarSesion() {

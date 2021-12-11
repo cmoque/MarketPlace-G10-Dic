@@ -76,10 +76,11 @@
     <string name="txt_signup_text_registration_right">El usuario se registro correctamente</string>
     <string name="txt_signup_text_registration_incorrect">Ocurrio un error al realizar el registro</string>
     <string name="txt_add_test">Añadir cuestionario</string>
-    <string name="txt_main_test_title">Cuestionartios</string>
-    <string name="txt_test_item_name">Cuestionartio</string>
+    <string name="txt_main_test_title">Cuestionarios</string>
+    <string name="txt_test_item_name">Cuestionario</string>
     <string name="dashboard_page_title">Panel</string>
-    <string name="btn_dashboard_show_tests">Ver cuestionarios</string>
+    <string name="btn_dashboard_show_tests">Ver Cuestionario</string>
+    <string name="btn_dashboard_create_test">Crear Cuestionario</string>
     <string name="btn_dashboard_show_questions">Ver preguntas</string>
 
 </resources>
