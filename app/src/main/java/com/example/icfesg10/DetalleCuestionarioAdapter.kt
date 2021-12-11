@@ -8,17 +8,17 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.icfesg10.model.Cuestionario
 
-class CuestionariosAdapter(
+class DetalleCuestionarioAdapter(
     private val mContext: Context,
     val listaCuestionarios: List<Cuestionario>
 ) :
     ArrayAdapter<Cuestionario>(mContext, 0, listaCuestionarios) {
     override fun getView(posicion: Int, view: View?, viewGroup: ViewGroup): View {
         val layout =
-            LayoutInflater.from(mContext).inflate(R.layout.cuestionarios_item, viewGroup, false)
+            LayoutInflater.from(mContext).inflate(R.layout.detalle_cuestionario_item, viewGroup, false)
         val cuestionario = listaCuestionarios[posicion]
 
-        layout.findViewById<TextView>(R.id.tvName).text = "Test " + cuestionario.idTest.toString()
+        layout.findViewById<TextView>(R.id.tvName).text = cuestionario.pregunta
 
         return layout
     }

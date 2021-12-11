@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.icfesg10.databinding.ActivityMainCuestionariosBinding
+import com.example.icfesg10.databinding.ActivityDetalleCuestionarioBinding
 import com.example.icfesg10.model.Cuestionario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,33 +17,43 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class MainCuestionarios() : AppCompatActivity() {
-    private lateinit var binding: ActivityMainCuestionariosBinding
+class DetalleCuestionario() : AppCompatActivity() {
+    private lateinit var binding: ActivityDetalleCuestionarioBinding
     private lateinit var auth: FirebaseAuth
 
     private lateinit var listaCuestionarios: ArrayList<Cuestionario>
-    private lateinit var CuestionariosAdapter: ArrayAdapter<Cuestionario>
+    private lateinit var DetalleCuestionarioAdapter: ArrayAdapter<Cuestionario>
 
     var database = Firebase.database
     var dbReferenciaCuestionarios = database.getReference("test")
-    var dbReferenciaUsuarios = database.reference
+    var bundle: Bundle? = null
+    lateinit var cuestionario: Cuestionario
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainCuestionariosBinding.inflate(layoutInflater)
+        binding = ActivityDetalleCuestionarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        bundle = intent.extras
+        cuestionario = bundle?.get("cuestionario") as Cuestionario
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
-        supportActionBar?.title = resources.getString(R.string.txt_main_test_title)
+        supportActionBar?.title =
+            resources.getString(R.string.txt_test_item_name) + cuestionario.idTest.toString()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = Firebase.auth
 
+
         listaCuestionarios = ArrayList<Cuestionario>()
 
-        binding.btnAdicionarCuestionario.setOnClickListener {
+        verListaCuestionarios()
+
+        binding.lvCuestionarios.setOnItemClickListener { parent, view, position, id ->
+            var cuestionario = listaCuestionarios[position]
+
             // Añadir la actividad correcta
-//            val intent = Intent(this, AdicionarPreguntas::class.java)
+//            val intent = Intent(this, EditarCuestionario::class.java)
+//            intent.putExtra("cuestionario", cuestionario)
 //            this.startActivity(intent)
             Toast.makeText(
                 this,
@@ -51,43 +61,35 @@ class MainCuestionarios() : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-
-        verListaCuestionarios()
-
-        binding.lvCuestionarios.setOnItemClickListener { parent, view, position, id ->
-            var cuestionario = listaCuestionarios[position]
-
-            val intent = Intent(this, DetalleCuestionario::class.java)
-            intent.putExtra("cuestionario", cuestionario)
-            this.startActivity(intent)
-        }
     }
 
     private fun verListaCuestionarios() {
         val cuestionarioItemListener = object : ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
-                var i = 0
                 for (pel in datasnapshot.children) {
 
                     // Objeto MAP
                     val mapCuestionario: Map<String, Any> = pel.value as HashMap<String, Any>
 
-                   if (i < mapCuestionario.get("idtest").toString().toInt()) {
-                       i = mapCuestionario.get("idtest").toString().toInt()
-                       var cuestionario: Cuestionario = Cuestionario(
-                           mapCuestionario.get("id").toString(),
-                           mapCuestionario.get("idpregunta").toString(),
-                           mapCuestionario.get("idtest").toString().toInt(),
-                           mapCuestionario.get("pregunta").toString(),
-                           mapCuestionario.get("resCorrecta").toString(),
-                           mapCuestionario.get("respuesta").toString(),
-                           mapCuestionario.get("usuario").toString(),
-                       )
-                       listaCuestionarios.add(cuestionario)
-                       CuestionariosAdapter =
-                           CuestionariosAdapter(this@MainCuestionarios, listaCuestionarios)
-                       binding.lvCuestionarios.adapter = CuestionariosAdapter
-                   }
+                    if (mapCuestionario.get("usuario")
+                            .toString() == cuestionario.usuario && mapCuestionario.get("idtest")
+                            .toString() == cuestionario.idTest.toString()
+                    ) {
+
+                        var cuestionario = Cuestionario(
+                            mapCuestionario.get("id").toString(),
+                            mapCuestionario.get("idpregunta").toString(),
+                            mapCuestionario.get("idtest").toString().toInt(),
+                            mapCuestionario.get("pregunta").toString(),
+                            mapCuestionario.get("resCorrecta").toString(),
+                            mapCuestionario.get("respuesta").toString(),
+                            mapCuestionario.get("usuario").toString(),
+                        )
+                        listaCuestionarios.add(cuestionario)
+                        DetalleCuestionarioAdapter =
+                            DetalleCuestionarioAdapter(this@DetalleCuestionario, listaCuestionarios)
+                        binding.lvCuestionarios.adapter = DetalleCuestionarioAdapter
+                    }
                 }
             }
 
@@ -96,12 +98,7 @@ class MainCuestionarios() : AppCompatActivity() {
             }
         }
 
-        dbReferenciaUsuarios.child("users").child(auth.currentUser?.uid.toString()).get()
-            .addOnSuccessListener {
-                val mapUser: Map<String, Any> = it.value as HashMap<String, Any>
-                dbReferenciaCuestionarios.orderByChild("usuario").equalTo(mapUser.get("username").toString())
-                    .addValueEventListener(cuestionarioItemListener)
-            }
+        dbReferenciaCuestionarios.addValueEventListener(cuestionarioItemListener)
     }
 
     private fun cerrarSesion() {
@@ -129,7 +126,7 @@ class MainCuestionarios() : AppCompatActivity() {
     }
 
     private fun irPanel() {
-        val intent = Intent(this, MainDashboard::class.java)
+        val intent = Intent(this, MainCuestionarios::class.java)
         this.startActivity(intent)
     }
 }
