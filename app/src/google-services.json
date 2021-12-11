@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "956280998380",
+    "firebase_url": "https://saberprog10-default-rtdb.firebaseio.com",
+    "project_id": "saberprog10",
+    "storage_bucket": "saberprog10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956280998380:android:34558996cfdd8579bb58c9",
+        "android_client_info": {
+          "package_name": "com.example.icfesg10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956280998380-6dbn5r3qthp49vi1np6a3n3p2b2k390f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjJJW-AUhUtJw3joOAaB0BLkN9iycK50Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956280998380-6dbn5r3qthp49vi1np6a3n3p2b2k390f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956280998380:android:3752bdc408672a3ebb58c9",
+        "android_client_info": {
+          "package_name": "com.example.marketplaceg10"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956280998380-6dbn5r3qthp49vi1np6a3n3p2b2k390f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjJJW-AUhUtJw3joOAaB0BLkN9iycK50Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956280998380-6dbn5r3qthp49vi1np6a3n3p2b2k390f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
