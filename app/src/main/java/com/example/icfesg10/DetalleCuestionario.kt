@@ -38,11 +38,10 @@ class DetalleCuestionario() : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
         supportActionBar?.title =
-            resources.getString(R.string.txt_test_item_name) + cuestionario.idTest.toString()
+           resources.getString(R.string.txt_test_item_name) + cuestionario.idTest.toString()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = Firebase.auth
-
 
         listaCuestionarios = ArrayList<Cuestionario>()
 
@@ -71,10 +70,7 @@ class DetalleCuestionario() : AppCompatActivity() {
                     // Objeto MAP
                     val mapCuestionario: Map<String, Any> = pel.value as HashMap<String, Any>
 
-                    if (mapCuestionario.get("usuario")
-                            .toString() == cuestionario.usuario && mapCuestionario.get("idtest")
-                            .toString() == cuestionario.idTest.toString()
-                    ) {
+                    if (mapCuestionario.get("usuario").toString() == cuestionario.usuario && mapCuestionario.get("idtest").toString() == cuestionario.idTest.toString()) {
 
                         var cuestionario = Cuestionario(
                             mapCuestionario.get("id").toString(),

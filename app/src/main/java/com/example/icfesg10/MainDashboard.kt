@@ -12,6 +12,7 @@ import com.example.icfesg10.databinding.ActivityDashboardBinding
 import com.example.icfesg10.databinding.ActivityMainBinding
 import com.example.icfesg10.databinding.ActivityMainPreguntasBinding
 import com.example.icfesg10.model.Pregunta
+import com.example.icfesg10.model.User
 import com.example.icfesg10.model.test
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,6 +33,7 @@ class MainDashboard : AppCompatActivity() {
 
     private lateinit var listaPreguntas: ArrayList<Pregunta>
     private lateinit var listaTest: ArrayList<test>
+    private lateinit var listaUser: ArrayList<User>
 
     private val db=FirebaseFirestore.getInstance()
 
@@ -39,6 +41,8 @@ class MainDashboard : AppCompatActivity() {
     var idTest:Int=0
     var dbReferenciaPreguntas = database.getReference("preguntas")
     var dbReferenceTest = database.getReference("test")
+    var dbReferenceUser = database.getReference("users")
+    var username: String =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,7 @@ class MainDashboard : AppCompatActivity() {
         val currentUser = auth.currentUser
         listaPreguntas = ArrayList<Pregunta>()
         listaTest = ArrayList<test>()
+        listaUser = ArrayList<User>()
 
         binding.btnMostrarCuestionarios.setOnClickListener {
             val intent = Intent(this, MainCuestionarios::class.java)
@@ -62,20 +67,16 @@ class MainDashboard : AppCompatActivity() {
             this.startActivity(intent)
         }
 
+
         binding.btnCrearTest.setOnClickListener{
-            if (currentUser != null) {
-                Generartest(currentUser.email.toString())
-            }
-            else
-                Generartest("admin")
+                Generartest()
         }
-
-        verListadoPreguntas()
         getTest()
-
+        getUser(currentUser?.email.toString())
+        verListadoPreguntas()
     }
 
-    private fun Generartest(user:String){
+    private fun Generartest(){
         var testfinal: ArrayList<Pregunta> =ArrayList<Pregunta>()
         var listaSelecciona: ArrayList<Int> = ArrayList()
         var posicion: Int
@@ -97,7 +98,7 @@ class MainDashboard : AppCompatActivity() {
                 item.PreTexto,
                 "",
                 item.Respuesta,
-                user
+                username
 
             )
             println(item)
@@ -162,6 +163,33 @@ class MainDashboard : AppCompatActivity() {
             }
         }
         dbReferenceTest.addValueEventListener(TestItemListener)
+    }
+
+    private fun getUser(email:String){
+         val userItemListener = object: ValueEventListener{
+             override fun onDataChange(datasnapshot: DataSnapshot) {
+                for (user in datasnapshot.children){
+                    val mapUser: Map<String, Any> = user.value as HashMap<String, Any>
+                    if ( email==mapUser.get("email").toString()) {
+                        var users: User = User(
+                            mapUser.get("uid").toString(),
+                            mapUser.get("name").toString(),
+                            mapUser.get("lastname").toString(),
+                            mapUser.get("username").toString(),
+                            mapUser.get("email").toString(),
+                            mapUser.get("role").toString().toInt()
+                        )
+                        listaUser.add(users)
+                        username =mapUser.get("username").toString()
+                    }
+                }
+                 println("el user name es $username")
+             }
+             override fun onCancelled(error: DatabaseError) {
+                 TODO("Not yet implemented")
+             }
+         }
+        dbReferenceUser.addValueEventListener(userItemListener)
     }
 
     private fun cerrarSesion() {
