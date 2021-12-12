@@ -20,6 +20,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -30,7 +31,10 @@ class MainDashboard : AppCompatActivity() {
     private lateinit var binding: ActivityDashboardBinding
 
     private lateinit var listaPreguntas: ArrayList<Pregunta>
+    private lateinit var listaTest: ArrayList<test>
     private lateinit var PreguntasVisorAdapter: ArrayAdapter<Pregunta>
+
+    private val db=FirebaseFirestore.getInstance()
 
     var database = Firebase.database
     var dbReferenciaPreguntas = database.getReference("preguntas")
@@ -46,6 +50,7 @@ class MainDashboard : AppCompatActivity() {
         auth = Firebase.auth
         val currentUser = auth.currentUser
         listaPreguntas = ArrayList<Pregunta>()
+        listaTest = ArrayList<test>()
 
         binding.btnMostrarCuestionarios.setOnClickListener {
             val intent = Intent(this, MainCuestionarios::class.java)
@@ -66,9 +71,10 @@ class MainDashboard : AppCompatActivity() {
         }
 
         verListadoPreguntas()
+        getTest()
+        println(listaTest.indices)
 
     }
-
 
     private fun Generartest(user:String){
         var testfinal: ArrayList<Pregunta> =ArrayList<Pregunta>()
@@ -127,6 +133,33 @@ class MainDashboard : AppCompatActivity() {
             }
         }
         dbReferenciaPreguntas.addValueEventListener(preguntaItemListener)
+    }
+
+    private fun getTest(){
+        val TestItemListener = object : ValueEventListener {
+            override fun onDataChange(datasnapshot: DataSnapshot) {
+                for (pre in datasnapshot.children) {
+
+                    val mapTest: Map<String, Any> = pre.value as HashMap<String, Any>
+
+                    var tests: test = test(
+                        mapTest.get("id").toString(),
+                        mapTest.get("idtest").toString()?.toInt(),
+                        mapTest.get("idpregunta").toString(),
+                        mapTest.get("pregunta").toString(),
+                        mapTest.get("respuesta").toString(),
+                        mapTest.get("rescorrecta").toString(),
+                        mapTest.get("usuario").toString()
+                    )
+                    listaTest.add(tests)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        dbReferenceTest.addValueEventListener(TestItemListener)
     }
 
     private fun cerrarSesion() {
