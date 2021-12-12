@@ -32,11 +32,11 @@ class MainDashboard : AppCompatActivity() {
 
     private lateinit var listaPreguntas: ArrayList<Pregunta>
     private lateinit var listaTest: ArrayList<test>
-    private lateinit var PreguntasVisorAdapter: ArrayAdapter<Pregunta>
 
     private val db=FirebaseFirestore.getInstance()
 
     var database = Firebase.database
+    var idTest:Int=0
     var dbReferenciaPreguntas = database.getReference("preguntas")
     var dbReferenceTest = database.getReference("test")
 
@@ -72,7 +72,6 @@ class MainDashboard : AppCompatActivity() {
 
         verListadoPreguntas()
         getTest()
-        println(listaTest.indices)
 
     }
 
@@ -93,7 +92,7 @@ class MainDashboard : AppCompatActivity() {
         for (item in testfinal){
             var test = test(
                 UUID.randomUUID().toString(),
-                2,
+                idTest,
                 item.id,
                 item.PreTexto,
                 "",
@@ -105,7 +104,7 @@ class MainDashboard : AppCompatActivity() {
             dbReferenceTest.child(test.id.toString()).setValue(test)
         }
 
-        Toast.makeText(this, "Se creó el test Aleatoriamente", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Se creó el test Aleatoriamente $idTest", Toast.LENGTH_LONG).show()
     }
     private fun verListadoPreguntas() {
         val preguntaItemListener = object : ValueEventListener {
@@ -136,10 +135,10 @@ class MainDashboard : AppCompatActivity() {
     }
 
     private fun getTest(){
+
         val TestItemListener = object : ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
                 for (pre in datasnapshot.children) {
-
                     val mapTest: Map<String, Any> = pre.value as HashMap<String, Any>
 
                     var tests: test = test(
@@ -152,9 +151,12 @@ class MainDashboard : AppCompatActivity() {
                         mapTest.get("usuario").toString()
                     )
                     listaTest.add(tests)
+                    if (tests.idtest>idTest)
+                        idTest=tests.idtest
                 }
+                println("El máximo test es: $idTest")
+                idTest=idTest+1
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
