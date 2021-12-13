@@ -5,12 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.Toast
 import com.example.icfesg10.databinding.ActivityDashboardBinding
-import com.example.icfesg10.databinding.ActivityMainBinding
-import com.example.icfesg10.databinding.ActivityMainPreguntasBinding
 import com.example.icfesg10.model.Pregunta
 import com.example.icfesg10.model.User
 import com.example.icfesg10.model.test
@@ -21,7 +17,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -35,14 +30,12 @@ class MainDashboard : AppCompatActivity() {
     private lateinit var listaTest: ArrayList<test>
     private lateinit var listaUser: ArrayList<User>
 
-    private val db=FirebaseFirestore.getInstance()
-
     var database = Firebase.database
-    var idTest:Int=0
+    var idTest: Int = 0
     var dbReferenciaPreguntas = database.getReference("preguntas")
     var dbReferenceTest = database.getReference("test")
     var dbReferenceUser = database.getReference("users")
-    var username: String =""
+    var username: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,29 +61,29 @@ class MainDashboard : AppCompatActivity() {
         }
 
 
-        binding.btnCrearTest.setOnClickListener{
-                Generartest()
+        binding.btnCrearTest.setOnClickListener {
+            Generartest()
         }
         getTest()
         getUser(currentUser?.email.toString())
         verListadoPreguntas()
     }
 
-    private fun Generartest(){
-        var testfinal: ArrayList<Pregunta> =ArrayList<Pregunta>()
+    private fun Generartest() {
+        var testfinal: ArrayList<Pregunta> = ArrayList<Pregunta>()
         var listaSelecciona: ArrayList<Int> = ArrayList()
         var posicion: Int
-        var termino:Boolean =false
-        while (!termino){
-            posicion= Random.nextInt(listaPreguntas.indices)
+        var termino: Boolean = false
+        while (!termino) {
+            posicion = Random.nextInt(listaPreguntas.indices)
             if (!listaSelecciona.contains(posicion)) {
                 listaSelecciona.add(posicion)
                 testfinal.add(listaPreguntas[posicion])
             }
-            if(listaSelecciona.size==5)
-                termino=true
+            if (listaSelecciona.size == 5)
+                termino = true
         }
-        for (item in testfinal){
+        for (item in testfinal) {
             var test = test(
                 UUID.randomUUID().toString(),
                 idTest,
@@ -107,6 +100,7 @@ class MainDashboard : AppCompatActivity() {
 
         Toast.makeText(this, "Se creó el test Aleatoriamente $idTest", Toast.LENGTH_LONG).show()
     }
+
     private fun verListadoPreguntas() {
         val preguntaItemListener = object : ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
@@ -135,7 +129,7 @@ class MainDashboard : AppCompatActivity() {
         dbReferenciaPreguntas.addValueEventListener(preguntaItemListener)
     }
 
-    private fun getTest(){
+    private fun getTest() {
 
         val TestItemListener = object : ValueEventListener {
             override fun onDataChange(datasnapshot: DataSnapshot) {
@@ -152,12 +146,13 @@ class MainDashboard : AppCompatActivity() {
                         mapTest.get("usuario").toString()
                     )
                     listaTest.add(tests)
-                    if (tests.idtest>idTest)
-                        idTest=tests.idtest
+                    if (tests.idtest > idTest)
+                        idTest = tests.idtest
                 }
                 println("El máximo test es: $idTest")
-                idTest=idTest+1
+                idTest = idTest + 1
             }
+
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -165,12 +160,12 @@ class MainDashboard : AppCompatActivity() {
         dbReferenceTest.addValueEventListener(TestItemListener)
     }
 
-    private fun getUser(email:String){
-         val userItemListener = object: ValueEventListener{
-             override fun onDataChange(datasnapshot: DataSnapshot) {
-                for (user in datasnapshot.children){
+    private fun getUser(email: String) {
+        val userItemListener = object : ValueEventListener {
+            override fun onDataChange(datasnapshot: DataSnapshot) {
+                for (user in datasnapshot.children) {
                     val mapUser: Map<String, Any> = user.value as HashMap<String, Any>
-                    if ( email==mapUser.get("email").toString()) {
+                    if (email == mapUser.get("email").toString()) {
                         var users: User = User(
                             mapUser.get("uid").toString(),
                             mapUser.get("name").toString(),
@@ -180,15 +175,16 @@ class MainDashboard : AppCompatActivity() {
                             mapUser.get("role").toString().toInt()
                         )
                         listaUser.add(users)
-                        username =mapUser.get("username").toString()
+                        username = mapUser.get("username").toString()
                     }
                 }
-                 println("el user name es $username")
-             }
-             override fun onCancelled(error: DatabaseError) {
-                 TODO("Not yet implemented")
-             }
-         }
+                println("el user name es $username")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
         dbReferenceUser.addValueEventListener(userItemListener)
     }
 

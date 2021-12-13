@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4296875" />
         <entry key="app/src/main/res/layout/activity_adicionar_preguntas.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/activity_detalle_cuestionario.xml" value="0.3278985507246377" />
         <entry key="app/src/main/res/layout/activity_editar_preguntas.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/activity_main_cuestionarios.xml" value="0.37907608695652173" />
@@ -38,6 +39,7 @@
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_ver_cuestionario.xml" value="0.37907608695652173" />
         <entry key="app/src/main/res/layout/cuestionarios_item.xml" value="0.37907608695652173" />
+        <entry key="app/src/main/res/layout/detalle_cuestionario_item.xml" value="0.3278985507246377" />
         <entry key="app/src/main/res/layout/fragment_detalle_pregunta.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/fragment_preguntas.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/preguntas_item.xml" value="0.23697916666666666" />

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.icfesg10.databinding.ActivityMainCuestionariosBinding
 import com.example.icfesg10.model.Cuestionario
@@ -40,17 +39,6 @@ class MainCuestionarios() : AppCompatActivity() {
         auth = Firebase.auth
 
         listaCuestionarios = ArrayList<Cuestionario>()
-
-        binding.btnAdicionarCuestionario.setOnClickListener {
-            // Añadir la actividad correcta
-//            val intent = Intent(this, AdicionarPreguntas::class.java)
-//            this.startActivity(intent)
-            Toast.makeText(
-                this,
-                "Remover este mensaje. Ver comentarios codigo",
-                Toast.LENGTH_LONG
-            ).show()
-        }
 
         verListaCuestionarios()
 
