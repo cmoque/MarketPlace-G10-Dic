@@ -6,7 +6,7 @@ data class test(
     val idtest: Int,
     val idpregunta: String,
     val pregunta: String,
-    val respuesta: String,
+    var respuesta: String,
     val resCorrecta: String,
     val usuario: String
 ):Serializable

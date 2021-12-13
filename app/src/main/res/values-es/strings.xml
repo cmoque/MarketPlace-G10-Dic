@@ -98,7 +98,9 @@
     <string name="txt_answer_question_answer1">Respuesta</string>
     <string name="txt_answer_question_user">Usuario:</string>
     <string name="txt_answer_question_user1">Usuario</string>
-    <string name="txt_answer_question_button_send">ENVIAR</string>
-    <string name="txt_answer_question_button_cancel">CANCELAR</string>
+    <string name="txt_answer_question_button_answer">Responder</string>
+    <string name="txt_answer_question_button_cancel">Cancelar</string>
+    <string name="txt_resolve_test">Resolver cuestionario</string>
+    <string name="msg_resolve_test_success">Cuestionario resuelto</string>
 
 </resources>

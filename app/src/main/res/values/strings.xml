@@ -92,13 +92,15 @@
     <string name="txt_answer_question_ask_id1">Ask ID</string>
     <string name="txt_answer_question_test_id">Test ID:</string>
     <string name="txt_answer_question_test_id1">Test ID</string>
-    <string name="txt_answer_question_questions">Questions:</string>
-    <string name="txt_answer_question_questions1">Questions</string>
+    <string name="txt_answer_question_questions">Question:</string>
+    <string name="txt_answer_question_questions1">Question</string>
     <string name="txt_answer_question_answer">Answer:</string>
     <string name="txt_answer_question_answer1">Answer</string>
     <string name="txt_answer_question_user">User:</string>
     <string name="txt_answer_question_user1">User</string>
-    <string name="txt_answer_question_button_send">SEND</string>
-    <string name="txt_answer_question_button_cancel">CANCEL</string>
+    <string name="txt_answer_question_button_answer">Answer</string>
+    <string name="txt_answer_question_button_cancel">Cancel</string>
+    <string name="txt_resolve_test">Resolve test</string>
+    <string name="msg_resolve_test_success">The test was resolve</string>
 
 </resources>
