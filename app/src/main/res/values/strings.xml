@@ -83,5 +83,19 @@
     <string name="btn_dashboard_show_questions">Show questions</string>
     <string name="btn_dashboard_create_test">Create test</string>
     <string name="txt_show_test_label">Test:</string>
+    <string name="txt_answer_question_user_id">User ID:</string>
+    <string name="txt_answer_question_user_id1">User ID</string>
+    <string name="txt_answer_question_ask_id">Ask ID:</string>
+    <string name="txt_answer_question_ask_id1">Ask ID</string>
+    <string name="txt_answer_question_test_id">Test ID:</string>
+    <string name="txt_answer_question_test_id1">Test ID</string>
+    <string name="txt_answer_question_questions">Questions:</string>
+    <string name="txt_answer_question_questions1">Questions</string>
+    <string name="txt_answer_question_answer">Answer:</string>
+    <string name="txt_answer_question_answer1">Answer</string>
+    <string name="txt_answer_question_user">User:</string>
+    <string name="txt_answer_question_user1">User</string>
+    <string name="txt_answer_question_button_send">SEND</string>
+    <string name="txt_answer_question_button_cancel">CANCEL</string>
 
 </resources>

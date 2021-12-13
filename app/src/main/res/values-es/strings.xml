@@ -82,5 +82,20 @@
     <string name="btn_dashboard_show_tests">Ver Cuestionario</string>
     <string name="btn_dashboard_create_test">Crear Cuestionario</string>
     <string name="btn_dashboard_show_questions">Ver preguntas</string>
+    <string name="txt_show_test_label">Test:</string>
+    <string name="txt_answer_question_user_id">ID Usuario:</string>
+    <string name="txt_answer_question_user_id1">ID Usuario</string>
+    <string name="txt_answer_question_ask_id">ID Pregunta:</string>
+    <string name="txt_answer_question_ask_id1">ID Pregunta</string>
+    <string name="txt_answer_question_test_id">ID Test:</string>
+    <string name="txt_answer_question_test_id1">ID Test</string>
+    <string name="txt_answer_question_questions">Pregunta:</string>
+    <string name="txt_answer_question_questions1">Pregunta</string>
+    <string name="txt_answer_question_answer">Respuesta:</string>
+    <string name="txt_answer_question_answer1">Respuesta</string>
+    <string name="txt_answer_question_user">Usuario:</string>
+    <string name="txt_answer_question_user1">Usuario</string>
+    <string name="txt_answer_question_button_send">ENVIAR</string>
+    <string name="txt_answer_question_button_cancel">CANCELAR</string>
 
 </resources>
