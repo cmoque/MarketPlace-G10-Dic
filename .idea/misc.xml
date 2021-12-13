@@ -19,12 +19,6 @@
         <entry key="..\:/Users/max/AndroidStudioProjects/MarketPlace-G10/app/src/main/res/layout/preguntas_item.xml" value="0.5" />
         <entry key="..\:/Users/max/AndroidStudioProjects/MarketPlaceG10/app/src/main/res/layout/activity_main.xml" value="0.104" />
         <entry key="..\:/Users/max/AndroidStudioProjects/MarketPlaceG10/app/src/main/res/layout/activity_signup.xml" value="0.17831813576494426" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/activity_adicionar_preguntas.xml" value="0.2" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/activity_editar_preguntas.xml" value="0.18" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/activity_main_cuestionarios.xml" value="0.25" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/activity_preguntas.xml" value="0.22" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/activity_responder_preguntas.xml" value="0.22" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/MarketPlace-G10-Dic/app/src/main/res/layout/cuestionarios_item.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4296875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4296875" />
         <entry key="app/src/main/res/layout/activity_adicionar_preguntas.xml" value="0.23697916666666666" />
@@ -36,6 +30,8 @@
         <entry key="app/src/main/res/layout/activity_main_preguntas.xml" value="0.36186594202898553" />
         <entry key="app/src/main/res/layout/activity_menu_profesor.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_preguntas.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/activity_responder_cuestionario.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_responder_preguntas.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.23697916666666666" />
         <entry key="app/src/main/res/layout/activity_ver_cuestionario.xml" value="0.37907608695652173" />
         <entry key="app/src/main/res/layout/cuestionarios_item.xml" value="0.37907608695652173" />

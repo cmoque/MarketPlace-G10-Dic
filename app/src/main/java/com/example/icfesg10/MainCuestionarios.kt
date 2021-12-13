@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import com.example.icfesg10.databinding.ActivityMainCuestionariosBinding
-import com.example.icfesg10.model.Cuestionario
+import com.example.icfesg10.model.test
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -20,8 +20,8 @@ class MainCuestionarios() : AppCompatActivity() {
     private lateinit var binding: ActivityMainCuestionariosBinding
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var listaCuestionarios: ArrayList<Cuestionario>
-    private lateinit var CuestionariosAdapter: ArrayAdapter<Cuestionario>
+    private lateinit var listaCuestionarios: ArrayList<test>
+    private lateinit var CuestionariosAdapter: ArrayAdapter<test>
 
     var database = Firebase.database
     var dbReferenciaCuestionarios = database.getReference("test")
@@ -38,7 +38,7 @@ class MainCuestionarios() : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        listaCuestionarios = ArrayList<Cuestionario>()
+        listaCuestionarios = ArrayList<test>()
 
         verListaCuestionarios()
 
@@ -62,13 +62,13 @@ class MainCuestionarios() : AppCompatActivity() {
 
                    if (i < mapCuestionario.get("idtest").toString().toInt()) {
                        i = mapCuestionario.get("idtest").toString().toInt()
-                       var cuestionario: Cuestionario = Cuestionario(
+                       var cuestionario: test = test(
                            mapCuestionario.get("id").toString(),
-                           mapCuestionario.get("idpregunta").toString(),
                            mapCuestionario.get("idtest").toString().toInt(),
+                           mapCuestionario.get("idpregunta").toString(),
                            mapCuestionario.get("pregunta").toString(),
-                           mapCuestionario.get("resCorrecta").toString(),
                            mapCuestionario.get("respuesta").toString(),
+                           mapCuestionario.get("resCorrecta").toString(),
                            mapCuestionario.get("usuario").toString(),
                        )
                        listaCuestionarios.add(cuestionario)

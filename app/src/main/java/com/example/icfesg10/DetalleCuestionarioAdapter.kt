@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.example.icfesg10.model.Cuestionario
+import com.example.icfesg10.model.test
 
 class DetalleCuestionarioAdapter(
     private val mContext: Context,
-    val listaCuestionarios: List<Cuestionario>
+    val listaCuestionarios: List<test>
 ) :
-    ArrayAdapter<Cuestionario>(mContext, 0, listaCuestionarios) {
+    ArrayAdapter<test>(mContext, 0, listaCuestionarios) {
     override fun getView(posicion: Int, view: View?, viewGroup: ViewGroup): View {
         val layout =
             LayoutInflater.from(mContext)

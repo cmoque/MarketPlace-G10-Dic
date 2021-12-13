@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.icfesg10.databinding.ActivityDetalleCuestionarioBinding
-import com.example.icfesg10.model.Cuestionario
+import com.example.icfesg10.model.test
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -21,44 +20,38 @@ class DetalleCuestionario() : AppCompatActivity() {
     private lateinit var binding: ActivityDetalleCuestionarioBinding
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var listaCuestionarios: ArrayList<Cuestionario>
-    private lateinit var DetalleCuestionarioAdapter: ArrayAdapter<Cuestionario>
+    private lateinit var listaCuestionarios: ArrayList<test>
+    private lateinit var DetalleCuestionarioAdapter: ArrayAdapter<test>
 
     var database = Firebase.database
     var dbReferenciaCuestionarios = database.getReference("test")
     var bundle: Bundle? = null
-    lateinit var cuestionario: Cuestionario
+    lateinit var cuestionario: test
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleCuestionarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
         bundle = intent.extras
-        cuestionario = bundle?.get("cuestionario") as Cuestionario
+        cuestionario = bundle?.get("cuestionario") as test
         setSupportActionBar(findViewById(R.id.my_toolbar))
 
         supportActionBar?.title =
-           resources.getString(R.string.txt_test_item_name) + cuestionario.idTest.toString()
+            resources.getString(R.string.txt_test_item_name) + " " + cuestionario.idtest.toString()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         auth = Firebase.auth
 
-        listaCuestionarios = ArrayList<Cuestionario>()
+        listaCuestionarios = ArrayList<test>()
 
         verListaCuestionarios()
 
         binding.lvCuestionarios.setOnItemClickListener { parent, view, position, id ->
             var cuestionario = listaCuestionarios[position]
 
-            // Añadir la actividad correcta
-//            val intent = Intent(this, EditarCuestionario::class.java)
-//            intent.putExtra("cuestionario", cuestionario)
-//            this.startActivity(intent)
-            Toast.makeText(
-                this,
-                "Remover este mensaje. Ver comentarios codigo",
-                Toast.LENGTH_LONG
-            ).show()
+            val intent = Intent(this, ResponderCuestionario::class.java)
+            intent.putExtra("cuestionario", cuestionario)
+            this.startActivity(intent)
         }
     }
 
@@ -70,15 +63,18 @@ class DetalleCuestionario() : AppCompatActivity() {
                     // Objeto MAP
                     val mapCuestionario: Map<String, Any> = pel.value as HashMap<String, Any>
 
-                    if (mapCuestionario.get("usuario").toString() == cuestionario.usuario && mapCuestionario.get("idtest").toString() == cuestionario.idTest.toString()) {
+                    if (mapCuestionario.get("usuario")
+                            .toString() == cuestionario.usuario && mapCuestionario.get("idtest")
+                            .toString() == cuestionario.idtest.toString()
+                    ) {
 
-                        var cuestionario = Cuestionario(
+                        var cuestionario = test(
                             mapCuestionario.get("id").toString(),
-                            mapCuestionario.get("idpregunta").toString(),
                             mapCuestionario.get("idtest").toString().toInt(),
+                            mapCuestionario.get("idpregunta").toString(),
                             mapCuestionario.get("pregunta").toString(),
-                            mapCuestionario.get("resCorrecta").toString(),
                             mapCuestionario.get("respuesta").toString(),
+                            mapCuestionario.get("resCorrecta").toString(),
                             mapCuestionario.get("usuario").toString(),
                         )
                         listaCuestionarios.add(cuestionario)
