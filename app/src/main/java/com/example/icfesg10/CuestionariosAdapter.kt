@@ -18,7 +18,18 @@ class CuestionariosAdapter(
             LayoutInflater.from(mContext).inflate(R.layout.cuestionarios_item, viewGroup, false)
         val cuestionario = listaCuestionarios[posicion]
 
-        layout.findViewById<TextView>(R.id.tvName).text = "Test " + cuestionario.idTest.toString()
+        layout.findViewById<TextView>(R.id.tvName).text =
+            mContext.resources.getString(R.string.txt_show_test_label) + cuestionario.idTest.toString()
+
+        if (cuestionario.respuesta == "") {
+            layout.findViewById<TextView>(R.id.tvStatus).text =
+                mContext.resources.getString(R.string.txt_show_test_status_label) +
+                        mContext.resources.getString(R.string.txt_show_test_status_unresolved)
+        } else {
+            layout.findViewById<TextView>(R.id.tvStatus).text =
+                mContext.resources.getString(R.string.txt_show_test_status_label) +
+                        mContext.resources.getString(R.string.txt_show_test_status_resolved)
+        }
 
         return layout
     }

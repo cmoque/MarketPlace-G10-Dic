@@ -28,28 +28,32 @@
             android:id="@+id/btnMostrarCuestionarios"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/btn_dashboard_show_tests" />
 
         <Button
             android:id="@+id/btnMostrarPreguntas"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/btn_dashboard_show_questions" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/btnCrearTest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/btn_dashboard_create_test" />
     </LinearLayout>
 

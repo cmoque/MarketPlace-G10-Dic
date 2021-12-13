@@ -82,5 +82,9 @@
     <string name="btn_dashboard_show_tests">Ver Cuestionario</string>
     <string name="btn_dashboard_create_test">Crear Cuestionario</string>
     <string name="btn_dashboard_show_questions">Ver preguntas</string>
+    <string name="txt_show_test_label">Cuestionario: </string>
+    <string name="txt_show_test_status_label">Estado: </string>
+    <string name="txt_show_test_status_resolved">Resuelto</string>
+    <string name="txt_show_test_status_unresolved">No resuelto</string>
 
 </resources>

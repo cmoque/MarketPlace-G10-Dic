@@ -82,6 +82,9 @@
     <string name="btn_dashboard_show_tests">Show tests</string>
     <string name="btn_dashboard_show_questions">Show questions</string>
     <string name="btn_dashboard_create_test">Create test</string>
-    <string name="txt_show_test_label">Test:</string>
+    <string name="txt_show_test_label">Test: </string>
+    <string name="txt_show_test_status_label">Status: </string>
+    <string name="txt_show_test_status_resolved">Resolved</string>
+    <string name="txt_show_test_status_unresolved">Unresolved</string>
 
 </resources>
