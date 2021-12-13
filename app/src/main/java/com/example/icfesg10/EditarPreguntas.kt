@@ -86,4 +86,6 @@ class EditarPreguntas : AppCompatActivity() {
     private fun salir() {
         startActivity(Intent(this, MainPreguntas::class.java))
     }
+
+
 }

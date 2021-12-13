@@ -32,7 +32,8 @@
             android:id="@+id/resPregunta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/txt_answer_question_questions1" />
+            android:hint="@string/txt_answer_question_questions1"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,17 +41,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/txt_answer_question_answer" />
-
-        <EditText
-            android:id="@+id/resResPregunta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/txt_answer_question_answer1" />
+            android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/Opcion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+                android:id="@+id/Opcion2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <RadioButton
+                android:id="@+id/Opcion3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
     </LinearLayout>
 
     <Button
