@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.icfesg10.databinding.ActivityDetalleCuestionarioBinding
 import com.example.icfesg10.model.test
@@ -21,11 +24,13 @@ class DetalleCuestionario() : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var listaCuestionarios: ArrayList<test>
+    private lateinit var listaCuestionariosEvaluado: ArrayList<test>
     private lateinit var DetalleCuestionarioAdapter: ArrayAdapter<test>
 
     var database = Firebase.database
     var dbReferenciaCuestionarios = database.getReference("test")
     var bundle: Bundle? = null
+    var nota:Int=0
     lateinit var cuestionario: test
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +48,7 @@ class DetalleCuestionario() : AppCompatActivity() {
         auth = Firebase.auth
 
         listaCuestionarios = ArrayList<test>()
+        listaCuestionariosEvaluado = ArrayList<test>()
 
         verListaCuestionarios()
 
@@ -53,7 +59,12 @@ class DetalleCuestionario() : AppCompatActivity() {
             intent.putExtra("cuestionario", cuestionario)
             this.startActivity(intent)
         }
+
+        binding.btnevaluar.setOnClickListener {
+            evaluartest()
+        }
     }
+
 
     private fun verListaCuestionarios() {
         val cuestionarioItemListener = object : ValueEventListener {
@@ -120,6 +131,49 @@ class DetalleCuestionario() : AppCompatActivity() {
     private fun irPanel() {
         val intent = Intent(this, MainCuestionarios::class.java)
         this.startActivity(intent)
+    }
+
+    private fun evaluartest(){
+        nota=0
+        val cuestionarioItemListener = object : ValueEventListener {
+            override fun onDataChange(datasnapshot: DataSnapshot) {
+                println("fun evaluar antes del for")
+                for (cus in datasnapshot.children) {
+                    println("ingresó al for de evaluar")
+                    val mapCuestionario: Map<String, Any> = cus.value as HashMap<String, Any>
+
+                    if (mapCuestionario.get("usuario")
+                            .toString() == cuestionario.usuario && mapCuestionario.get("idtest")
+                            .toString() == cuestionario.idtest.toString())
+                        {
+                            var cuestionario = test(
+                                mapCuestionario.get("id").toString(),
+                                mapCuestionario.get("idtest").toString().toInt(),
+                                mapCuestionario.get("idpregunta").toString(),
+                                mapCuestionario.get("pregunta").toString(),
+                                mapCuestionario.get("respuesta").toString(),
+                                mapCuestionario.get("resCorrecta").toString(),
+                                mapCuestionario.get("usuario").toString(),
+                            )
+                            listaCuestionariosEvaluado.add(cuestionario)
+                            print("Respuesta:")
+                            println(mapCuestionario.get("respuesta").toString())
+                            print("Correct:")
+                            println(mapCuestionario.get("resCorrecta").toString())
+                        if (mapCuestionario.get("respuesta").toString() == mapCuestionario.get("resCorrecta").toString()) {
+                            nota += 1
+                        }
+                    }
+                    val etnota=findViewById<EditText>(R.id.etnota)
+                    etnota.setText("su nota es de: $nota")
+                }
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+        dbReferenciaCuestionarios.addValueEventListener(cuestionarioItemListener)
     }
 }
 

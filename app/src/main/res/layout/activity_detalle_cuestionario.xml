@@ -18,6 +18,22 @@
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnevaluar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Evaluar">
+        </Button>
+        <EditText
+            android:id="@+id/etnota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></EditText>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
